@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/lay_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/chatBackground"
+            android:orientation="vertical" />
+
+
+        <LinearLayout
+            android:id="@+id/lnt_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45dp"
+            android:background="@drawable/edt_rectangle_grey"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgEmoji"
+                style="@style/icon.large.padding"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_chat_emoji" />
+
+            <EditText
+                android:id="@+id/edtMessage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/chat_activity_message_hint" />
+
+            <ImageView
+                android:id="@+id/imgSend"
+                style="@style/icon.large.padding"
+                android:layout_gravity="center_vertical"
+                app:tint="@null"
+                app:srcCompat="@drawable/ic_chat_send_message" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

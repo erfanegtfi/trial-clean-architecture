@@ -1,0 +1,127 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+apply plugin: "kotlin-kapt"
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.example.trial_clean_architecture"
+        minSdkVersion 17
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        rootProject.ext.variantRelease = false //default  we are in debug mode, will be overriden on task execution
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation (Libraries.kotlin)
+    implementation (Androidx.appcompat)
+    implementation (Libraries.ktx)
+    implementation (Libraries.permissions)
+    implementation (Androidx.design)
+    implementation (Androidx.constraintlayout)
+    implementation (Androidx.lifecycleExtensions)
+    implementation (Androidx.navigationFragmentKtx)
+    implementation (Androidx.navigationUIKtx)
+    implementation (Jetbrains.coroutinesAndroid)
+    implementation (Jetbrains.coroutinesCore)
+    implementation (Androidx.livedata)
+
+//    // Navigation
+//    implementation deps.navigation.runtime_ktx
+//    implementation deps.navigation.fragment_ktx
+//    implementation deps.navigation.ui_ktx
+
+//    implementation (Androidx.viewmodel)
+
+    implementation ('io.socket:socket.io-client:1.+') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
+
+    //dagger
+    implementation (Libraries.dagger)
+    kapt (Libraries.daggerCompiler)
+
+//    implementation (Androidx.media)
+    implementation (Libraries.glide)
+    annotationProcessor  (Libraries.glide)
+    kapt "com.github.bumptech.glide:compiler:$Versions.glide"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    implementation (Libraries.picasso)
+
+    //room
+    implementation (Androidx.room)
+    kapt (Androidx.roomCompiler)
+    implementation (Androidx.roomRuntime)
+
+    //retrofit
+    implementation (Libraries.retrofit)
+    implementation (Libraries.gsonConverter)
+    implementation (Libraries.gson)
+    implementation (Libraries.scalarsConverter)
+
+    //watchtower
+    debugImplementation 'com.snakyapps.watchtower:interceptor-okhttp:2.0.2'
+    releaseImplementation 'com.snakyapps.watchtower:interceptor-okhttp-no-op:2.0.2' // no-op dependency for non-debug build variants
+
+
+    implementation project(':domain')
+    implementation project(':data')
+    implementation project(':common')
+}
+
+// Trigger build type (as soon as possible) and make some action via corresponding tasks
+project.afterEvaluate {
+    tasks.all { task ->
+        if (task.name =~ /check.*Manifest/) {
+            if (task.name =~ /[dD]ebug/) {
+                task.dependsOn(onDebugTypeTriggered)
+            } else {
+                task.dependsOn(onReleaseTypeTriggered)
+            }
+        }
+    }
+}
+
+task onDebugTypeTriggered {
+    rootProject.ext.variantRelease = false
+}
+
+task onReleaseTypeTriggered {
+    rootProject.ext.variantRelease = true
+}

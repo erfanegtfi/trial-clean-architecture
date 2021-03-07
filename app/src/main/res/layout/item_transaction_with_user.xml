@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="androidx.core.content.ContextCompat" />
+        <import type="com.example.trial_clean_architecture.utils.Utils" />
+        <variable
+            name="transactions"
+            type="com.example.trial_clean_architecture.model.Transactions" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:layout_marginBottom="@dimen/spacing_small">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/spacing_normal" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/spacing_normal" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/spacing_normal" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="@dimen/spacing_normal" />
+
+            <ImageView
+                android:id="@+id/imgUserAvatar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:image_url="@{transactions.userAvatar}"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                app:layout_constraintTop_toTopOf="@id/guidelineTop" />
+
+            <ImageView
+                android:id="@+id/imgBadge"
+                android:layout_width="@dimen/_10dp"
+                android:background="@drawable/bg_circular_red"
+                android:visibility="@{transactions.hasChat? View.VISIBLE: View.GONE}"
+                android:layout_margin="@dimen/spacing_small"
+                app:layout_constraintTop_toTopOf="@+id/imgUserAvatar"
+                app:layout_constraintEnd_toEndOf="@+id/imgUserAvatar"
+                android:layout_height="@dimen/_10dp"/>
+
+            <TextView
+                android:id="@+id/txtReceivedFrom"
+                style="@style/text.singleLine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                app:layout_constraintBottom_toTopOf="@+id/txtCategory"
+                app:layout_constraintEnd_toStartOf="@+id/imgUserAvatar"
+                app:layout_constraintStart_toEndOf="@+id/txtAmount"
+                app:layout_constraintTop_toTopOf="@id/guidelineTop" />
+            <!--            android:text="@{transactions.userFullName}"-->
+
+            <TextView
+                android:id="@+id/txtCategory"
+                style="@style/text.singleLine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:text="@{transactions.transaction.description}"
+                android:textColor="@color/greyText"
+                android:gravity="right"
+                android:textAppearance="@style/textAppearance.size12.grey"
+                app:layout_constraintBottom_toTopOf="@+id/txtStatus"
+                app:layout_constraintEnd_toEndOf="@+id/txtReceivedFrom"
+                app:layout_constraintStart_toEndOf="@+id/txtAmount"
+                app:layout_constraintTop_toBottomOf="@+id/txtReceivedFrom" />
+
+            <TextView
+                android:id="@+id/txtStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{transactions.transaction.statusTitle}"
+                android:textAppearance="@style/textAppearance.size12.white"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+                android:background="@{ContextCompat.getDrawable(context, transactions.transaction.statusBackground)}"
+                app:layout_constraintEnd_toEndOf="@+id/txtReceivedFrom"
+                app:layout_constraintTop_toBottomOf="@+id/txtCategory" />
+
+            <TextView
+                android:id="@+id/txtAmount"
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{transactions.transaction.amountFormatter}"
+                android:textColor="@{ContextCompat.getColor(context, transactions.transaction.amountColor)}"
+                android:textAppearance="@style/textAppearance.size20.green"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+                app:layout_constraintTop_toTopOf="@id/guidelineTop" />
+
+            <TextView
+                android:id="@+id/txtCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/toolbar_currency"
+                android:textAppearance="@style/textAppearance.size10.grey"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+                app:layout_constraintTop_toBottomOf="@+id/txtAmount" />
+
+            <TextView
+                android:id="@+id/txtDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:textAppearance="@style/textAppearance.size12.grey"
+                android:text="@{transactions.transaction.createDateTime}"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLeft" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
+

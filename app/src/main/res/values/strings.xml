@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Trial-clean-architecture</string>
+    <string name="home_nav_title_contact">مخاطبین</string>
+    <string name="home_nav_title_transaction">تراکنشها</string>
+    <string name="home_nav_title_setting">تنظیمات</string>
+    <string name="main_title">تراکنش ها</string>
+
+
+    <string name="transaction_fragment_balance">موجودی</string>
+    <string name="transaction_fragment_currency">تومان</string>
+    <string name="transaction_fragment_request">درخواست</string>
+    <string name="transaction_fragment_transfer">ارسال</string>
+    <string name="transaction_fragment_search_hint">جستجو ...</string>
+    <string name="transaction_fragment_list_error">موردی یافت نشده</string>
+
+
+    <string name="_19_000">19,000</string>
+    <string name="toolbar_receive">درخواست</string>
+    <string name="toolbar_transfer">ارسال</string>
+    <string name="toolbar_currency">تومان</string>
+
+    <string name="chat_activity_message_hint">ارسال پیام ...</string>
+</resources>

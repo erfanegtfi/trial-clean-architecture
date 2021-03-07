@@ -1,0 +1,3 @@
+package com.example.trial_clean_architecture.model.base
+
+interface BasePresentationModel

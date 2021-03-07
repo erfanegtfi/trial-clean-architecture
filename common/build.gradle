@@ -1,0 +1,27 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation (Libraries.kotlin)
+    implementation (Jetbrains.coroutinesAndroid)
+    implementation (Jetbrains.coroutinesCore)
+
+    //retrofit
+    api (Libraries.retrofit)
+    api (Libraries.gsonConverter)
+    api (Libraries.gson)
+    api (Libraries.scalarsConverter)
+
+    implementation (Libraries.inject)
+    implementation (Libraries.gson)
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="message"
+            type="com.example.trial_clean_architecture.model.ChatContent" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="@dimen/_230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:layout_marginStart="@dimen/spacing_normal"
+
+            android:background="@drawable/chat_partner_message_bg"
+            android:padding="@dimen/padding_small">
+
+
+            <TextView
+                android:id="@+id/txtMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:text="@{message.message}"
+                android:textAppearance="@style/textAppearance.size16" />
+
+
+            <TextView
+                android:id="@+id/txtDate"
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtMessage"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/spacing_small"
+                android:text="12:12"
+                android:textAppearance="@style/textAppearance.size12.grey"/>
+
+
+        </RelativeLayout>
+    </FrameLayout>
+</layout>
+

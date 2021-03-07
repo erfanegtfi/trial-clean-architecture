@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.trial_clean_architecture.ui.transaction.TransactionViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/lay_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/primary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_130dp"
+                    android:background="@color/primary">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guidelineLeft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="@dimen/spacing_large" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guidelineRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_end="@dimen/spacing_large" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guidelineTop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="@dimen/spacing_normal" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guidelineBottom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_end="@dimen/spacing_normal" />
+
+
+                    <ImageView
+                        android:id="@+id/ic_add"
+                        android:layout_width="@dimen/icon_size_large"
+                        android:layout_height="@dimen/icon_size_large"
+                        app:layout_constraintBottom_toTopOf="@+id/btn_menu_receive"
+                        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+                        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
+                        app:srcCompat="@drawable/ic_toolbar_plus" />
+
+                    <ImageView
+                        android:id="@+id/img_user_avatar"
+                        android:layout_width="@dimen/icon_size_large"
+                        android:layout_height="@dimen/icon_size_large"
+                        app:layout_constraintBottom_toTopOf="@+id/btn_menu_receive"
+                        app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+                        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
+                        app:srcCompat="@drawable/img_place_holder_user" />
+
+                    <TextView
+                        android:id="@+id/txt_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="top|end"
+                        android:text="@string/transaction_fragment_balance"
+                        android:textAppearance="@style/textAppearance.size12.white"
+                        app:layout_constraintBottom_toTopOf="@+id/txt_title"
+                        app:layout_constraintEnd_toEndOf="@+id/txt_title"
+                        app:layout_constraintTop_toTopOf="@+id/ic_add" />
+
+                    <TextView
+                        android:id="@+id/txt_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/spacing_normal"
+                        android:gravity="center_vertical|end"
+                        android:text="@string/_19_000"
+                        android:textAppearance="@style/textAppearance.size26.white"
+                        app:layout_constraintBottom_toBottomOf="@+id/ic_add"
+                        app:layout_constraintStart_toEndOf="@+id/ic_add"
+                        app:layout_constraintTop_toTopOf="@+id/ic_add" />
+
+                    <TextView
+                        android:id="@+id/txt_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_title"
+                        android:text="@string/transaction_fragment_currency"
+                        android:textAppearance="@style/textAppearance.size12.white"
+                        app:layout_constraintBottom_toBottomOf="@+id/ic_add"
+                        app:layout_constraintStart_toStartOf="@+id/txt_title"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_menu_receive"
+                        style="@style/textButton"
+                        android:layout_width="0dp"
+                        android:layout_marginEnd="@dimen/spacing_large"
+                        android:background="@drawable/bg_rectangle_trans_bordered_white"
+                        android:text="@string/transaction_fragment_request"
+                        app:backgroundTint="@null"
+                        app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_menu_transfer"
+                        app:layout_constraintStart_toStartOf="@id/guidelineLeft" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_menu_transfer"
+                        style="@style/textButton"
+                        android:layout_width="0dp"
+                        android:background="@drawable/bg_rectangle_green_bordered_white"
+                        android:text="@string/transaction_fragment_transfer"
+                        app:backgroundTint="@null"
+                        app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+                        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                        app:layout_constraintStart_toEndOf="@+id/btn_menu_receive" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <com.example.trial_clean_architecture.view.ToolbarView
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:alpha="0"
+                    app:layout_collapseMode="pin" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/lay_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/page_back_ground"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
+            <LinearLayout
+                android:id="@+id/lnt_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginRight="@dimen/spacing_large"
+                android:layout_marginBottom="@dimen/spacing_small"
+                android:orientation="horizontal"
+                android:background="@drawable/edt_rectangle_grey"
+                android:padding="@dimen/spacing_small">
+
+                <ImageView
+                    android:id="@+id/imgSearch"
+                    style="@style/icon.normal.padding"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_search" />
+
+                <EditText
+                    android:id="@+id/edtSearch"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/transaction_fragment_search_hint" />
+
+            </LinearLayout>
+
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_below="@+id/lnt_search"
+                android:layout_height="match_parent"
+                app:onRefreshListener="@{() -> viewModel.onRefresh()}"
+                app:refreshing="@{viewModel.loading}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"/>
+
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <TextView
+                android:id="@+id/txt_error_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/textAppearance.size14"
+                android:layout_centerInParent="true"
+                android:text="@string/transaction_fragment_list_error"
+                android:visibility="@{viewModel.error? View.VISIBLE: View.GONE}"
+
+                />
+        </RelativeLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

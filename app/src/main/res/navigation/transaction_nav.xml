@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/transaction_nav"
+    app:startDestination="@id/transactionFragment">
+
+
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.example.trial_clean_architecture.ui.transaction.TransactionFragment"
+        tools:layout="@layout/fragment_transaction_list"
+        android:label="TransactionFragment" />
+
+</navigation>
